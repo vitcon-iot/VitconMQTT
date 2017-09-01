@@ -9,7 +9,6 @@
    TACT-LINK or SELECT-LINK should be attached to A2, A3.
    LED-LINK or any other output LINK should be attached to all digital ports(D2-D9).
 
-   You should install VitconCommon and VitconLink library prior to VitconIOT library.
    The minimum interval calling BrokerComm.Run() function should be less than 2ms
 */
 
