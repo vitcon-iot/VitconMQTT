@@ -46,19 +46,30 @@ void MQTTComm::SendData()
 
       if(strlen(data) == 0 ) continue;
 
-      str += String(topic);
-      str += String((char)DATASEP);
-      str += String(data);
-
-      if ( i + 1 < mItemCount ) str += String((char)TOPICSEP);
-
-      mItems[i]->Set("");
+	  len += strlen(topic);
+	  len ++;
+	  len += strlen(data);
+	  if ( i + 1 < mItemCount ) len++;
     }
-    len = str.length();
 
     mSerial->write(STX);
-    mSerial->write((byte*)&len, sizeof(uint16_t));
-    mSerial->print(str);
+	mSerial->write((byte*)&len, sizeof(uint16_t));
+
+	for (int i = 0; i < mItemCount; i++)
+    {
+      const char* topic = mItems[i]->GetTopic();
+      const char* data = mItems[i]->GetData();
+
+      if(strlen(data) == 0 ) continue;
+
+	  mSerial->print(topic);
+	  mSerial->write((char)DATASEP);
+	  mSerial->print(data);
+
+	  if ( i + 1 < mItemCount )	  mSerial->write((char)TOPICSEP);
+	  
+    }
+
     mSerial->write(ETX);
 
     mTimer = curr;
@@ -112,4 +123,5 @@ void MQTTComm::callback(const char* topic, const char* data)
 {
   if (mFunc != 0) mFunc(topic, data);
 }
+
 
