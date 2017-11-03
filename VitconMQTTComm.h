@@ -5,6 +5,7 @@
   ESP-12S 모듈에 통신 데이터를 전송하는 모듈이다.
 
   2017-07-31 v1.0.0
+  2017-11-03 SendData()함수 동적할당 문자열 제거
 */
 
 #ifndef _VITCONMQTTCOMM_H_
@@ -50,3 +51,4 @@ namespace vitcon
 }
 
 #endif /* EOF */
+
